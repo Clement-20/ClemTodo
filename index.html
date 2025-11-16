@@ -123,14 +123,42 @@
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged, setPersistence, browserSessionPersistence } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, doc, addDoc, updateDoc, deleteDoc, onSnapshot, query, setLogLevel, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // --- GLOBAL CONFIGURATION & DOM ELEMENTS ---
+        // Lines 128 - 138: FINAL CORRECTED BLOCK
 
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
-        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+// 1. Define the correct configuration object
+const firebaseConfig = {
+  apiKey: "AIzaSyDEmv8W-JxOWw_XNikdKDCQ7m", // Your key
+  authDomain: "todo-ad4af.firebaseapp.com",
+  projectId: "todo-ad4af",
+  storageBucket: "todo-ad4af.appspot.com",
+  messagingSenderId: "309275979972",
+  appId: "1:309275979972:web:0d7250dd89539"
+};
 
-        let db;
-        let auth;
+// 2. Initialize Firebase and save the instance
+const FIREBASE_APP = initializeApp(firebaseConfig);
+
+// 3. Link the service variables to the instance
+let db = getFirestore(FIREBASE_APP);
+let auth = getAuth(FIREBASE_APP);
+
+// 4. Clean up any duplicated or old variables below this block!
+//    Ensure there are NO other lines like: 'let db;' or 'let auth;'
+//    anywhere else in the global scope.
+
+
+// GLOBAL CONFIGURATION & DOM ELEMENTS --
+// Delete this line: const appId = typeof _app_id !== 'undefined' ? _app_id : 'default';
+// Delete this line: const firebaseConfig = JSON.parse(typeof _firebase_config !== 'undefined' ? _firebase_config : '{}');
+// Delete this line: const initialAuthToken = typeof _initial_auth_token !== 'undefined' ? _initial_auth_token : null;
+
+let db = getFirestore(); // If you initialized correctly, this might work
+let auth = getAuth();
+// ...
+
+
+        let db = getFirestore(FIREBASE_APP);
+        let auth = getAuth(FIREBASE_APP);
         let userId = null;
         let unsubscribeTasks = null;
         let authReady = false;
